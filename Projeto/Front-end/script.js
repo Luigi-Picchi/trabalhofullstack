@@ -7,8 +7,8 @@ document.getElementById('formPessoa').addEventListener('submit', async (event) =
 
     const pessoaData = {
         CPF,
-        Nome: nome,
-        Telefone: telefone
+        nome,  
+        telefone  
     };
 
     try {

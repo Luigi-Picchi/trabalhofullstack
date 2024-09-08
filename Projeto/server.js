@@ -4,7 +4,7 @@ const routes = require('./routes');
 
 const app = express();
 
-app.use((express.static(path.join(__dirname, 'Front-end'))));
+app.use(express.static(path.join(__dirname, 'Front-end')));
 app.use(express.json());
 app.use(routes);
 

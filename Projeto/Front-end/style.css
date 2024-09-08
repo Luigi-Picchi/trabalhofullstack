@@ -1,7 +1,6 @@
 body{
     font-family: Arial, sans-serif;
-    background-image: url("https://cdn.motor1.com/images/mgl/jl9zy6/s1/vw-polo-gts-250tsi-2024.webp");
-    background-color: #f4f4f4;
+    background-color: #add8e6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,8 +11,7 @@ body{
 .container {
     border-radius: 8px;
     background-color: #f4f4f4;
-    box-shadow: 0 0 10px rgba(0, 251, 34, 0.952);
-    width: 300px;
+    width: 470px;
    align-items: center;
    
 }

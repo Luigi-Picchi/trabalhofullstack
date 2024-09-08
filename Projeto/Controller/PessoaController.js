@@ -1,75 +1,62 @@
-const { Pessoa } = require('../models');
+const Pessoa = require('../Model/Pessoa');
 
-class PessoaController {
+const PessoaController = {
   async index(req, res) {
     try {
       const pessoas = await Pessoa.findAll();
-      return res.json(pessoas);
+      res.json(pessoas);
     } catch (error) {
-      return res.status(500).json({ error: 'Erro ao buscar pessoas.' });
+      res.status(500).json({ error: error.message });
     }
-  }
+  },
 
   async store(req, res) {
     try {
-      const { CPF, Nome, Telefone } = req.body;
-      const pessoa = await Pessoa.create({ CPF, Nome, Telefone });
-      return res.json(pessoa);
+      const pessoa = await Pessoa.create(req.body);
+      res.status(201).json(pessoa);
     } catch (error) {
-      return res.status(500).json({ error: 'Erro ao criar pessoa.' });
+      res.status(500).json({ error: error.message });
     }
-  }
+  },
 
   async show(req, res) {
     try {
-      const { cpf } = req.params;
-      const pessoa = await Pessoa.findByPk(cpf);
-
+      const pessoa = await Pessoa.findOne({ where: { cpf: req.params.cpf } });
       if (!pessoa) {
-        return res.status(404).json({ error: 'Pessoa não encontrada.' });
+        return res.status(404).json({ error: 'Pessoa não encontrada' });
       }
-
-      return res.json(pessoa);
+      res.json(pessoa);
     } catch (error) {
-      return res.status(500).json({ error: 'Erro ao buscar pessoa.' });
+      res.status(500).json({ error: error.message });
     }
-  }
+  },
 
   async update(req, res) {
     try {
-      const { cpf } = req.params;
-      const { Nome, Telefone } = req.body;
-      const pessoa = await Pessoa.findByPk(cpf);
-
-      if (!pessoa) {
-        return res.status(404).json({ error: 'Pessoa não encontrada.' });
+      const [updated] = await Pessoa.update(req.body, { where: { cpf: req.params.cpf } });
+      if (updated) {
+        const pessoa = await Pessoa.findOne({ where: { cpf: req.params.cpf } });
+        res.json(pessoa);
+      } else {
+        res.status(404).json({ error: 'Pessoa não encontrada' });
       }
-
-      pessoa.Nome = Nome;
-      pessoa.Telefone = Telefone;
-      await pessoa.save();
-
-      return res.json(pessoa);
     } catch (error) {
-      return res.status(500).json({ error: 'Erro ao atualizar pessoa.' });
+      res.status(500).json({ error: error.message });
     }
-  }
+  },
 
   async delete(req, res) {
     try {
-      const { cpf } = req.params;
-      const pessoa = await Pessoa.findByPk(cpf);
-
-      if (!pessoa) {
-        return res.status(404).json({ error: 'Pessoa não encontrada.' });
+      const deleted = await Pessoa.destroy({ where: { cpf: req.params.cpf } });
+      if (deleted) {
+        res.status(204).send();
+      } else {
+        res.status(404).json({ error: 'Pessoa não encontrada' });
       }
-
-      await pessoa.destroy();
-      return res.status(204).send();
     } catch (error) {
-      return res.status(500).json({ error: 'Erro ao deletar pessoa.' });
+      res.status(500).json({ error: error.message });
     }
-  }
-}
+  },
+};
 
-module.exports = new PessoaController();
+module.exports = PessoaController;

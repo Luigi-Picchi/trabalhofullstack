@@ -1,24 +1,22 @@
 const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database'); 
 
-module.exports = (sequelize) => {
-  const Pessoa = sequelize.define('Pessoa', {
-    CPF: {
-      type: DataTypes.STRING,
-      primaryKey: true
-    },
-    Nome: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    Telefone: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
+const Pessoa = sequelize.define('Pessoa', {
+  cpf: { 
+    type: DataTypes.STRING,
+    primaryKey: true
+  },
+  nome: { 
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  telefone: { 
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+}, {
+  tableName: 'pessoas', 
+  timestamps: true 
+});
 
-  }, {
-    tableName: 'pessoa',
-    timestamps: true
-  });
-
-  return Pessoa;
-};
+module.exports = Pessoa;
