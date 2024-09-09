@@ -5,8 +5,8 @@ const routes = express.Router();
 
 routes.get('/pessoas', PessoaController.index);
 routes.post('/pessoas', PessoaController.store);
-routes.get('/pessoas/:cpf', PessoaController.show);
-routes.put('/pessoas/:cpf', PessoaController.update);
-routes.delete('/pessoas/:cpf', PessoaController.delete);
+routes.get('/pessoas/:CPF', PessoaController.show);
+routes.put('/pessoas/:CPF', PessoaController.update);
+routes.delete('/pessoas/:CPF', PessoaController.delete);
 
 module.exports = routes;
