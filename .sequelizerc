@@ -1,4 +1,4 @@
-Código do arquivo .sequelize (o github não aceitou o arquivo)
+Código do arquivo .sequelize (o github não aceitou o arquivo), precisa coloca-lo dentro da pasta "Projeto" para funcionar.
 
 const path = require('path');
 
